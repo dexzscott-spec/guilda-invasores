@@ -285,14 +285,14 @@ async function ensureGuild(){
 async function loadData(){
  if(!currentGuild) return;
  const [mr,lr,lmr]=await Promise.all([
-   supabaseClient.from('guild_members').select('id,nick,player_id,mode,tag,gg,weekly_gg,status').eq('guild_id',currentGuild.id).order('created_at',{ascending:true}),
+   supabaseClient.from('guild_members').select('id,nick,player_id,mode,tag,gg_points,weekly_points,status').eq('guild_id',currentGuild.id).order('created_at',{ascending:true}),
    supabaseClient.from('guild_lines').select('id,name,mode').eq('guild_id',currentGuild.id).order('created_at',{ascending:true}),
    supabaseClient.from('guild_line_members').select('line_id,member_id,position')
  ]);
  if(mr.error) throw mr.error;
  if(lr.error) throw lr.error;
  if(lmr.error) throw lmr.error;
- members=(mr.data||[]).map(m=>({id:m.id,name:m.nick,playerId:m.player_id||'',mode:m.mode||'Rush',tag:!!m.tag,gg:m.gg||0,week:m.weekly_gg||0,ok:m.status==='active'}));
+ members=(mr.data||[]).map(m=>({id:m.id,name:m.nick,playerId:m.player_id||'',mode:m.mode||'Rush',tag:!!m.tag,gg:m.gg_points||0,week:m.weekly_points||0,ok:m.status==='active'}));
  const links=lmr.data||[];
  lines=(lr.data||[]).map(l=>({id:l.id,name:l.name,mode:l.mode||'',ids:links.filter(x=>x.line_id===l.id).sort((a,b)=>(a.position||1)-(b.position||1)).map(x=>x.member_id)}));
  renderDashboard();renderMembers();renderLines();
@@ -305,7 +305,7 @@ function closeMember(){ $('#memberModal').classList.remove('open') }
 async function saveMember(){
  const name=$('#nick').value.trim();if(!name){toast('Informe o nick do jogador');return}
  if(!currentUser||!currentGuild){toast('Aguarde a conexão com o Supabase');return}
- const payload={guild_id:currentGuild.id,user_id:currentUser.id,nick:name,player_id:$('#playerId').value.trim()||null,mode:$('#mode').value,tag:$('#tag').value==='1',gg:+$('#gg').value||0,weekly_gg:+$('#week').value||0,status:'active'};
+ const payload={guild_id:currentGuild.id,user_id:currentUser.id,nick:name,player_id:$('#playerId').value.trim()||null,mode:$('#mode').value,tag:$('#tag').value==='1',gg_points:+$('#gg').value||0,weekly_points:+$('#week').value||0,status:'active'};
  const {error}=await supabaseClient.from('guild_members').insert(payload);
  if(error){toast(error.message);return}
  closeMember();['nick','playerId','gg','week'].forEach(id=>$('#'+id).value=id==='gg'||id==='week'?0:'');
@@ -350,6 +350,38 @@ $('#search').oninput=renderMembers;$('#tagFilter').onchange=renderMembers;$('#mo
 let authMode='login';
 function setAuthMode(mode){authMode=mode;const s=mode==='signup';$('#loginTab').classList.toggle('active',!s);$('#signupTab').classList.toggle('active',s);$('#authTitle').textContent=s?'Criar sua conta':'Entrar na sua conta';$('#authSub').textContent=s?'Cadastre-se para gerenciar sua guilda.':'Acesse o painel de gestão da sua guilda.';$('#authSubmit').textContent=s?'Criar conta':'Entrar';$('#confirmWrap').style.display=s?'block':'none';$('#authError').textContent=''}
 $('#loginTab').onclick=()=>setAuthMode('login');$('#signupTab').onclick=()=>setAuthMode('signup');
+
+$('#authSubmit').onclick=async()=>{
+ try{
+   const email=$('#authEmail').value.trim();
+   const password=$('#authPassword').value;
+   const confirm=$('#authConfirm').value;
+   $('#authError').style.color='#ff6974';
+   $('#authError').textContent='';
+   if(!email||!password){$('#authError').textContent='Informe e-mail e senha.';return;}
+   if(authMode==='signup'){
+     if(password.length<6){$('#authError').textContent='A senha deve ter pelo menos 6 caracteres.';return;}
+     if(password!==confirm){$('#authError').textContent='As senhas não coincidem.';return;}
+     const {data,error}=await supabaseClient.auth.signUp({email,password});
+     if(error)throw error;
+     if(!data.session){
+       $('#authError').style.color='#19e6a0';
+       $('#authError').textContent='Conta criada. Verifique seu e-mail para confirmar o cadastro.';
+     }else{
+       $('#authScreen').style.display='none';
+     }
+   }else{
+     const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
+     if(error)throw error;
+     currentUser=data.user;
+     $('#authScreen').style.display='none';
+   }
+ }catch(e){
+   console.error(e);
+   $('#authError').style.color='#ff6974';
+   $('#authError').textContent=e.message||'Não foi possível concluir a autenticação.';
+ }
+};
 
 async function startApp(){
  try{
