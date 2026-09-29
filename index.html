@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>GUILDA INVASORES</title>
+<meta name="theme-color" content="#0b0c10">
+<style>
+:root{
+  --bg:#08090c;--panel:#101218;--panel2:#151820;--panel3:#1a1e27;
+  --line:#252a35;--text:#f5f7fb;--muted:#9299a8;--red:#ff3d4d;--red2:#ff6b35;
+  --gold:#f5b942;--green:#35d07f;--blue:#5f7cff;
+  --shadow:0 18px 50px #0008;--r:18px
+}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:
+ radial-gradient(600px 300px at 70% -10%,#ff3d4d14,transparent 70%),
+ radial-gradient(500px 300px at 10% 30%,#5f7cff0b,transparent 70%)}
+.app{min-height:100vh}
+.top{height:70px;position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line);background:#0b0c0fe8;backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:space-between;padding:0 22px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.2px}.brandmark{width:40px;height:40px;border-radius:13px;background:linear-gradient(145deg,var(--red),var(--red2));display:grid;place-items:center;font-weight:1000;color:#fff;box-shadow:0 8px 25px #ff3d4d2b}.brand small{display:block;color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-top:1px}
+.top-actions{display:flex;gap:8px}.icon{height:40px;min-width:40px;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:12px}.avatar{width:40px;border-radius:12px;background:#25151a;border:1px solid #4a2229;color:#ff7882;font-weight:900}
+.layout{display:grid;grid-template-columns:250px 1fr;min-height:calc(100vh - 70px)}
+.side{border-right:1px solid var(--line);background:#0c0d11;padding:22px 14px;position:sticky;top:70px;height:calc(100vh - 70px)}
+.side-title{font-size:10px;color:#697080;font-weight:900;text-transform:uppercase;letter-spacing:.14em;padding:0 11px;margin:6px 0 10px}
+.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#9299a8;text-align:left;padding:12px;border-radius:12px;font-weight:750;display:flex;align-items:center;gap:11px}.nav button:hover{background:var(--panel2);color:#fff}.nav button.active{background:linear-gradient(90deg,#ff3d4d1b,#ff3d4d05);color:#fff;box-shadow:inset 3px 0 0 var(--red)}
+.nav i{font-style:normal;width:20px;text-align:center}.guild{margin-top:25px;border:1px solid var(--line);background:linear-gradient(145deg,var(--panel2),#0f1116);padding:14px;border-radius:16px}.guild-label{font-size:10px;color:#737b8b;text-transform:uppercase;font-weight:900;letter-spacing:.12em}.guild-row{display:flex;align-items:center;gap:10px;margin-top:10px}.guild-logo{width:34px;height:34px;border-radius:11px;background:#221116;border:1px solid #4d2229;display:grid;place-items:center;color:#ff5965;font-weight:1000}.guild strong{font-size:13px}.guild small{color:var(--muted)}
+main{min-width:0}.content{max-width:1450px;margin:auto;padding:28px 30px 100px}
+.page{display:none}.page.active{display:block}
+.eyebrow{font-size:11px;color:#ff6670;text-transform:uppercase;font-weight:900;letter-spacing:.16em;margin-bottom:8px}
+.heading{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:24px}.heading h1{font-size:31px;line-height:1.05;margin:0 0 8px}.heading p{margin:0;color:var(--muted)}.actions{display:flex;gap:8px;flex-wrap:wrap}
+.primary{border:0;color:#fff;background:linear-gradient(135deg,var(--red),#ff5140);padding:12px 17px;border-radius:12px;font-weight:850;box-shadow:0 10px 30px #ff3d4d22}.secondary{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:11px 15px;border-radius:12px;font-weight:750}
+.hero{border:1px solid #302027;border-radius:24px;padding:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#171016 0%,#101218 52%,#11151c 100%);box-shadow:var(--shadow);margin-bottom:18px}.hero:after{content:"";position:absolute;width:300px;height:300px;right:-120px;top:-160px;border-radius:50%;background:#ff3d4d16;filter:blur(5px)}.hero-inner{position:relative;z-index:1}.hero h2{font-size:25px;margin:0 0 8px}.hero p{color:#aeb4c2;max-width:650px;margin:0 0 18px}.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{font-size:11px;padding:7px 10px;border-radius:999px;border:1px solid var(--line);background:#ffffff06;color:#cdd2dc;font-weight:750}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}.stat{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:17px;position:relative;overflow:hidden}.stat:after{content:"";position:absolute;right:-30px;top:-35px;width:90px;height:90px;border-radius:50%;background:#ff3d4d08}.stat .label{font-size:11px;color:#7f8797;font-weight:800}.stat strong{display:block;font-size:27px;margin-top:6px}.stat .meta{font-size:11px;color:#6f7786;margin-top:4px}.grid2{display:grid;grid-template-columns:1.25fr .75fr;gap:14px}.panel{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:18px}.panel-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:16px}.panel-head h3{font-size:15px;margin:0}.panel-head span{font-size:11px;color:var(--muted)}
+.progress{height:9px;background:#1d222c;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--red),var(--red2));border-radius:99px}.metric{margin-bottom:17px}.metric:last-child{margin-bottom:0}.metric-top{display:flex;justify-content:space-between;font-size:12px;margin-bottom:7px}.metric-top span:last-child{color:#c5cad5;font-weight:800}.list{display:grid;gap:8px}.list-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--line);background:var(--panel2);border-radius:13px}.member{display:flex;align-items:center;gap:10px;min-width:0}.mini{width:36px;height:36px;border-radius:11px;background:#24141a;border:1px solid #4b232b;display:grid;place-items:center;color:#ff6872;font-weight:900;flex:0 0 auto}.member b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.member small{display:block;color:#777f8f;font-size:10px;margin-top:2px}.rank{font-weight:900;color:#f5b942}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;border:1px solid var(--line);background:var(--panel);padding:12px;border-radius:16px;margin-bottom:12px}.search{flex:1;min-width:210px}.search input,.field input,.field select,.toolbar select{width:100%;border:1px solid var(--line);background:var(--panel2);color:var(--text);outline:none;border-radius:11px;padding:11px 12px}.table-wrap{border:1px solid var(--line);background:var(--panel);border-radius:18px;overflow:auto}.table{width:100%;border-collapse:collapse;min-width:800px}.table th,.table td{padding:14px;border-bottom:1px solid var(--line);text-align:left}.table th{font-size:10px;color:#747c8b;text-transform:uppercase;letter-spacing:.1em}.table td{font-size:12px}.table tr:last-child td{border-bottom:0}.tag{font-size:10px;padding:5px 8px;border-radius:999px;background:#ff3d4d14;color:#ff7780;border:1px solid #ff3d4d24;font-weight:900}.ok{color:var(--green);font-weight:800}.pending{color:#aeb4c2}.row-actions{display:flex;gap:5px}.smallbtn{width:34px;height:34px;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:9px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.line-card{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:17px}.line-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.line-top h3{margin:0;font-size:15px}.line-count{font-size:10px;color:#9fa6b5}.slots{display:grid;gap:7px}.slot{display:flex;align-items:center;gap:9px;padding:8px;border-radius:10px;background:var(--panel2);font-size:12px}.slot.empty{color:#666e7d;border:1px dashed #343a47;background:transparent}.slot .mini{width:28px;height:28px;border-radius:8px;font-size:9px}
+.settings{display:grid;grid-template-columns:1fr 1fr;gap:14px}.formgrid{display:grid;gap:12px}.field label{font-size:11px;color:#838b9b;font-weight:800;display:block;margin-bottom:6px}.field input{padding:12px}.hint{font-size:10px;color:#697180;margin-top:5px}.switchrow{display:flex;justify-content:space-between;gap:15px;align-items:center;padding:13px;border:1px solid var(--line);border-radius:13px;background:var(--panel2)}.switch{width:43px;height:24px;border-radius:99px;background:#2a303b;padding:3px}.switch i{display:block;width:18px;height:18px;border-radius:50%;background:#8d95a4}.switch.on{background:#5b222a}.switch.on i{margin-left:19px;background:#ff606b}
+.admin-list{display:grid;gap:9px}.role{font-size:10px;padding:5px 8px;border-radius:99px;background:#1e2330;color:#aeb7ff;font-weight:800}.empty{padding:35px;text-align:center;color:var(--muted)}
+.modal-bg{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:50}.modal-bg.open{display:flex}.modal{width:min(560px,100%);background:#11141a;border:1px solid #303642;border-radius:20px;padding:21px;box-shadow:0 30px 90px #0009}.modal h2{margin:0 0 17px}.form{display:grid;gap:12px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+.auth-bg{position:fixed;inset:0;background:#08090c;display:flex;align-items:center;justify-content:center;padding:20px;z-index:100}.auth-card{width:min(430px,100%);background:#11141a;border:1px solid #2c313b;border-radius:24px;padding:26px;box-shadow:0 30px 100px #000a}.auth-brand{display:flex;align-items:center;justify-content:center;gap:10px;font-size:20px;font-weight:900}.auth-card h1{text-align:center;font-size:25px;margin:18px 0 7px}.auth-sub{text-align:center;color:var(--muted);font-size:13px;margin:0 0 20px}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;background:var(--panel2);padding:5px;border-radius:12px;margin-bottom:16px}.tabs button{border:0;background:transparent;color:var(--muted);padding:9px;border-radius:8px}.tabs button.active{background:var(--red);color:#fff;font-weight:850}.auth-form{display:grid;gap:12px}.auth-form label{font-size:11px;color:#8a92a1;font-weight:800}.auth-form input{width:100%;margin-top:6px;border:1px solid var(--line);background:var(--panel2);color:#fff;border-radius:10px;padding:12px}.error{min-height:16px;color:#ff6974;font-size:11px;text-align:center}.auth-note{text-align:center;color:#656d7b;font-size:10px}
+.mobile-nav{display:none}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.settings{grid-template-columns:1fr}}
+@media(max-width:760px){.layout{display:block}.side{display:none}.content{padding:20px 13px 95px}.top{padding:0 13px}.brandmark{width:36px;height:36px}.brand span{font-size:13px}.heading{align-items:flex-start;flex-direction:column}.heading h1{font-size:27px}.actions,.primary{width:100%}.actions>*{flex:1}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);left:10px;right:10px;bottom:10px;z-index:30;background:#11141beF;border:1px solid #303641;border-radius:17px;padding:7px;box-shadow:0 15px 45px #000b;backdrop-filter:blur(18px)}.mobile-nav button{border:0;background:transparent;color:#7e8695;font-size:9px;font-weight:800;padding:7px 3px;border-radius:10px}.mobile-nav button.active{color:#fff;background:#ff3d4d18}.mobile-nav i{display:block;font-style:normal;font-size:17px;margin-bottom:2px}.hero{padding:20px}.cards{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:13px}.stat strong{font-size:23px}}
+
+/* GUILDA INVASORES — identidade azul / mobile first */
+:root{--bg:#02050b;--panel:#06101d;--panel2:#081728;--panel3:#0b1d31;--line:#12385f;--text:#f5f8ff;--muted:#8fa2bb;--red:#1687ff;--red2:#3158ff;--gold:#78a9ff;--green:#19e6a0;--blue:#1687ff;--shadow:0 18px 50px #000b}
+body{background:#02050b}
+body:before{background:radial-gradient(600px 300px at 70% -10%,#1687ff24,transparent 70%),radial-gradient(500px 300px at 10% 30%,#3158ff16,transparent 70%)}
+.brandmark{object-fit:cover;background:#02050b;border:1px solid #1687ff88;box-shadow:0 0 24px #1687ff44}
+.top{background:#02050bf2;border-bottom-color:#12385f}
+.side{background:#030812;border-right-color:#12385f}
+.nav button.active{box-shadow:inset 3px 0 0 var(--red),0 0 18px #1687ff12}
+.hero{border-color:#155aa0;background:linear-gradient(135deg,#061225 0%,#07101c 52%,#040a13 100%)}
+.hero:after{background:#1687ff1a}
+.hero-brand{display:flex;align-items:center;gap:22px}
+.hero-logo{width:120px;height:120px;border-radius:24px;object-fit:cover;border:1px solid #1687ff88;box-shadow:0 0 38px #1687ff33;background:#02050b;flex:0 0 auto}
+.primary{background:linear-gradient(135deg,#1687ff,#3158ff);box-shadow:0 10px 30px #1687ff2b}
+.stat,.panel,.toolbar,.line-card,.table-wrap{border-color:#12385f}
+.stat:after{background:#1687ff10}
+.progress i{background:linear-gradient(90deg,#1687ff,#3158ff)}
+.tag{background:#1687ff14;color:#73b8ff;border-color:#1687ff35}
+.guild-logo,.mini{background:#041022;border-color:#155aa0;color:#69b5ff}
+.rank{color:#78a9ff}.switch.on{background:#0a4f91}.switch.on i{background:#69b5ff}
+.mobile-nav{background:#020711f2;border-color:#155aa0;box-shadow:0 0 35px #1687ff22,0 15px 45px #000b}
+.mobile-nav button.active{background:#1687ff18}
+.auth-bg{background:#02050b}.auth-card{background:#06101d;border-color:#12385f}.tabs button.active{background:#1687ff}
+.modal{background:#06101d;border-color:#12385f}
+
+@media(max-width:760px){
+ .content{padding:14px 10px 95px}.top{height:66px;padding:0 10px}.brand{gap:8px}.brandmark{width:40px;height:40px}.brand span{font-size:12px}.brand small{font-size:8px}.top-actions{gap:5px}.top-actions .icon{display:none}.avatar{width:36px;height:36px}
+ .heading{align-items:flex-start;flex-direction:column;gap:10px}.heading h1{font-size:25px}.heading p{font-size:12px}.actions,.primary{width:100%}.actions>*{flex:1}
+ .mobile-nav{left:8px;right:8px;bottom:8px;border-radius:18px;padding:7px}.mobile-nav button{font-size:9px;padding:7px 3px}.mobile-nav i{font-size:17px}
+ .hero{padding:14px;border-radius:20px}.hero-brand{gap:12px;align-items:center}.hero-logo{width:88px;height:88px;border-radius:18px}.hero h2{font-size:20px;margin-bottom:6px}.hero p{font-size:11px;margin-bottom:10px}.eyebrow{font-size:9px}.chip{font-size:9px;padding:5px 7px}
+ .stats{gap:8px}.stat{padding:12px;border-radius:14px}.stat strong{font-size:22px}.stat .label,.stat .meta{font-size:9px}.panel{padding:13px;border-radius:15px}.panel-head h3{font-size:13px}.toolbar{padding:9px;border-radius:14px}.search{min-width:100%}.toolbar select{min-width:0;flex:1}.table{min-width:720px}.cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="authScreen" class="auth-bg">
+  <div class="auth-card">
+    <div class="auth-brand"><img class="brandmark" src="invasores-logo.png" alt="Logo"><span>GUILDA INVASORES</span></div>
+    <h1 id="authTitle">Entrar na sua conta</h1>
+    <p class="auth-sub" id="authSub">Acesse o painel de gestão da sua guilda.</p>
+    <div class="tabs"><button id="loginTab" class="active">Entrar</button><button id="signupTab">Criar conta</button></div>
+    <div class="auth-form">
+      <label>E-MAIL<input id="authEmail" type="email" placeholder="seu@email.com" autocomplete="email"></label>
+      <label>SENHA<input id="authPassword" type="password" placeholder="••••••••" autocomplete="current-password"></label>
+      <label id="confirmWrap" style="display:none">CONFIRMAR SENHA<input id="authConfirm" type="password" placeholder="••••••••"></label>
+      <div id="authError" class="error"></div>
+      <button id="authSubmit" class="primary">Entrar</button>
+    </div>
+    <p class="auth-note">Autenticação protegida pelo Supabase.</p>
+  </div>
+</div>
+
+<div class="app">
+<header class="top">
+  <div class="brand"><img class="brandmark" src="invasores-logo.png" alt="Logo"><div><span>GUILDA INVASORES</span><small>JUNTOS SOMOS MAIS FORTES</small></div></div>
+  <div class="top-actions"><button class="icon" onclick="toast('Notificações em breve')">♢</button><button class="avatar">I</button></div>
+</header>
+<div class="layout">
+<aside class="side">
+  <div class="side-title">Menu principal</div>
+  <nav class="nav">
+    <button data-page="dashboard" class="active"><i>⌂</i>Dashboard</button>
+    <button data-page="membros"><i>♙</i>Membros</button>
+    <button data-page="lines"><i>⚔</i>Lines</button>
+    <button data-page="admin"><i>♛</i>Administração</button>
+    <button data-page="ajustes"><i>⚙</i>Ajustes</button>
+  </nav>
+  <div class="guild">
+    <div class="guild-label">Guilda ativa</div>
+    <div class="guild-row"><img class="guild-logo" src="invasores-logo.png" alt="Logo"><div><strong>GUILDA INVASORES</strong><br><small id="sideCount">8 membros</small></div></div>
+  </div>
+</aside>
+
+<main>
+<div class="content">
+<section id="dashboard" class="page active">
+  <div class="heading"><div><div class="eyebrow">Visão geral</div><h1>Dashboard</h1><p>Acompanhe a evolução da GUILDA INVASORES.</p></div><div class="actions"><button class="secondary" onclick="navigate('membros')">Ver membros</button><button class="primary" onclick="openMember()">+ Novo membro</button></div></div>
+  <div class="hero"><div class="hero-inner hero-brand"><img src="invasores-logo.png" alt="GUILDA INVASORES" class="hero-logo"><div><div class="eyebrow">JUNTOS SOMOS MAIS FORTES</div><h2>Bem-vindo(a) à GUILDA INVASORES</h2><p>Disciplina • Respeito • Crescimento • Vitória</p><div class="chips"><span class="chip">● Sistema online</span><span class="chip">8 membros cadastrados</span><span class="chip">2 lines</span></div></div></div></div>
+  <div class="stats">
+    <div class="stat"><div class="label">TOTAL DE MEMBROS</div><strong id="dTotal">8</strong><div class="meta">jogadores cadastrados</div></div>
+    <div class="stat"><div class="label">GG CONCLUÍDA</div><strong id="dGG">75%</strong><div class="meta">6 de 8 em dia</div></div>
+    <div class="stat"><div class="label">META SEMANAL</div><strong id="dWeek">63%</strong><div class="meta">progresso médio</div></div>
+    <div class="stat"><div class="label">COM TAG</div><strong id="dTag">6</strong><div class="meta">membros identificados</div></div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><div class="panel-head"><h3>Progresso da guilda</h3><span>Atualizado agora</span></div>
+      <div class="metric"><div class="metric-top"><span>GG</span><span>75%</span></div><div class="progress"><i style="width:75%"></i></div></div>
+      <div class="metric"><div class="metric-top"><span>Semanal</span><span>63%</span></div><div class="progress"><i style="width:63%"></i></div></div>
+      <div class="metric"><div class="metric-top"><span>Tags</span><span>75%</span></div><div class="progress"><i style="width:75%"></i></div></div>
+    </div>
+    <div class="panel"><div class="panel-head"><h3>Ranking GG</h3><span>Top membros</span></div><div id="ranking" class="list"></div></div>
+  </div>
+</section>
+
+<section id="membros" class="page">
+  <div class="heading"><div><div class="eyebrow">Gestão</div><h1>Membros</h1><p>Gerencie jogadores, tags e desempenho.</p></div><button class="primary" onclick="openMember()">+ Novo membro</button></div>
+  <div class="stats">
+    <div class="stat"><div class="label">TOTAL</div><strong id="mTotal">8</strong></div><div class="stat"><div class="label">COM TAG</div><strong id="mTag">6</strong></div><div class="stat"><div class="label">GG TOTAL</div><strong id="mGG">1.840</strong></div><div class="stat"><div class="label">SEMANAL</div><strong id="mWeek">1.265</strong></div>
+  </div>
+  <div class="toolbar"><div class="search"><input id="search" placeholder="Buscar por nick ou ID..."></div><select id="tagFilter"><option value="all">Todas as tags</option><option value="tag">Com tag</option><option value="notag">Sem tag</option></select><select id="modeFilter"><option value="all">Todos os modos</option><option>Rush</option><option>Fuzileiro</option><option>Suporte</option><option>Full Gás</option><option>Curandeiro</option></select><button class="secondary" onclick="renderMembers()">↻ Atualizar</button></div>
+  <div class="table-wrap"><table class="table"><thead><tr><th>Membro</th><th>Modo</th><th>Tag</th><th>GG</th><th>Semanal</th><th>Status</th><th></th></tr></thead><tbody id="tbody"></tbody></table></div>
+</section>
+
+<section id="lines" class="page">
+  <div class="heading"><div><div class="eyebrow">Organização</div><h1>Lines</h1><p>Monte grupos de até 10 jogadores e acompanhe a força de cada line.</p></div><button class="primary" onclick="openLine()">+ Nova line</button></div>
+  <div class="toolbar"><div class="search"><input id="lineSearch" placeholder="Buscar por nome, nick ou ID..."></div><select><option>Todos (GG + semanal)</option><option>GG</option><option>Semanal</option></select></div>
+  <div id="lineCards" class="cards"></div>
+</section>
+
+<section id="admin" class="page">
+  <div class="heading"><div><div class="eyebrow">Controle</div><h1>Administração</h1><p>Defina quem pode acessar e administrar a guilda.</p></div><button class="primary" onclick="toast('Convite de acesso preparado')">+ Adicionar acesso</button></div>
+  <div class="grid2">
+    <div class="panel"><div class="panel-head"><h3>Equipe com acesso</h3><span>3 contas</span></div><div class="admin-list">
+      <div class="list-row"><div class="member"><div class="mini">I</div><div><b>Líder</b><small>lider@invasores.gg</small></div></div><span class="role">LÍDER</span></div>
+      <div class="list-row"><div class="member"><div class="mini">AD</div><div><b>Administrador</b><small>admin@invasores.gg</small></div></div><span class="role">ADMIN</span></div>
+      <div class="list-row"><div class="member"><div class="mini">AN</div><div><b>Analista</b><small>analista@invasores.gg</small></div></div><span class="role">ADMIN</span></div>
+    </div></div>
+    <div class="panel"><div class="panel-head"><h3>Permissões</h3><span>Resumo</span></div>
+      <div class="switchrow"><div><b>Gerenciar membros</b><small>Adicionar, editar e remover jogadores.</small></div><div class="switch on"><i></i></div></div><br>
+      <div class="switchrow"><div><b>Gerenciar lines</b><small>Criar e editar grupos.</small></div><div class="switch on"><i></i></div></div><br>
+      <div class="switchrow"><div><b>Alterar ajustes</b><small>Somente líder.</small></div><div class="switch"><i></i></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="ajustes" class="page">
+  <div class="heading"><div><div class="eyebrow">Configuração</div><h1>Ajustes</h1><p>Personalize as regras da GUILDA INVASORES.</p></div><button class="primary" onclick="saveSettings()">Salvar alterações</button></div>
+  <div class="settings">
+    <div class="panel"><div class="panel-head"><h3>Identidade da guilda</h3><span>Geral</span></div><div class="formgrid">
+      <div class="field"><label>NOME DA GUILDA</label><input id="guildName" value="GUILDA INVASORES"></div>
+      <div class="field"><label>TAG DOS MEMBROS</label><input id="guildTag" value="[INV]"><div class="hint">Usada quando o membro estiver marcado como “Com tag”.</div></div>
+      <div class="field"><label>ID DA GUILDA</label><input value="" placeholder="Ex: 2056040488"></div>
+    </div></div>
+    <div class="panel"><div class="panel-head"><h3>Metas</h3><span>Desempenho</span></div><div class="formgrid">
+      <div class="field"><label>GG POR MEMBRO</label><input value="300" type="number"></div>
+      <div class="field"><label>SEMANAL POR MEMBRO</label><input value="500" type="number"></div>
+      <div class="field"><label>GG POR LINE</label><input value="1500" type="number"></div>
+      <div class="field"><label>SEMANAL POR LINE</label><input value="25000" type="number"></div>
+    </div></div>
+    <div class="panel"><div class="panel-head"><h3>Preferências</h3><span>Sistema</span></div>
+      <div class="switchrow"><div><b>Exigir tag nos membros</b><small>Mostra o status de identificação.</small></div><div class="switch on"><i></i></div></div><br>
+      <div class="switchrow"><div><b>Alertar pendências</b><small>Destaca GG e semanal atrasados.</small></div><div class="switch on"><i></i></div></div>
+    </div>
+  </div>
+</section>
+</div>
+</main>
+</div>
+<nav class="mobile-nav">
+  <button data-page="dashboard" class="active"><i>⌂</i>Início</button><button data-page="membros"><i>♙</i>Membros</button><button data-page="lines"><i>⚔</i>Lines</button><button data-page="admin"><i>♛</i>Admin</button><button data-page="ajustes"><i>⚙</i>Ajustes</button>
+</nav>
+</div>
+
+<div id="memberModal" class="modal-bg"><div class="modal"><h2>Novo membro</h2><div class="form">
+  <div class="field"><label>NICK</label><input id="nick" placeholder="Nome do jogador"></div>
+  <div class="field"><label>ID DO JOGADOR</label><input id="playerId" placeholder="Ex: 123456789"></div>
+  <div class="field"><label>MODO DE JOGO</label><select id="mode"><option>Rush</option><option>Fuzileiro</option><option>Suporte</option><option>Full Gás</option><option>Curandeiro</option></select></div>
+  <div class="field"><label>PONTOS GG</label><input id="gg" type="number" value="0"></div>
+  <div class="field"><label>PONTOS SEMANAL</label><input id="week" type="number" value="0"></div>
+  <div class="field"><label>TAG</label><select id="tag"><option value="1">Com tag</option><option value="0">Sem tag</option></select></div>
+</div><div class="modal-actions"><button class="secondary" onclick="closeMember()">Cancelar</button><button class="primary" onclick="saveMember()">Salvar membro</button></div></div></div>
+
+<div id="lineModal" class="modal-bg"><div class="modal"><h2>Nova line</h2><div class="form"><div class="field"><label>NOME DA LINE</label><input id="lineName" placeholder="Ex: Line Rush 01"></div><div class="field"><label>MEMBROS</label><div id="memberChecks" class="list"></div><div class="hint">Selecione até 10 jogadores.</div></div></div><div class="modal-actions"><button class="secondary" onclick="closeLine()">Cancelar</button><button class="primary" onclick="saveLine()">Criar line</button></div></div></div>
+
+<div id="toast" style="position:fixed;right:16px;bottom:88px;z-index:80;display:none;background:#171b23;border:1px solid #343b48;color:#fff;padding:12px 15px;border-radius:12px;font-size:12px;box-shadow:var(--shadow)"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL='https://nikcgbwgxfjlemydkcxw.supabase.co';
+const SUPABASE_KEY='sb_publishable_oBdaji1zMFW-mOzHNqKlBA_jhShqxBR';
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+let members=[];
+let lines=[];
+let currentUser=null;
+let currentGuild=null;
+
+const $=s=>document.querySelector(s);
+function initials(n){return (n||'?').slice(0,2).toUpperCase()}
+function toast(msg){const t=$('#toast');t.textContent=msg;t.style.display='block';clearTimeout(window._t);window._t=setTimeout(()=>t.style.display='none',2200)}
+function navigate(page){
+ document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+ $('#'+page).classList.add('active');
+ document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
+ window.scrollTo({top:0,behavior:'smooth'});
+ if(page==='membros')renderMembers();
+ if(page==='lines')renderLines();
+ if(page==='dashboard')renderDashboard();
+}
+document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>navigate(b.dataset.page));
+
+function renderDashboard(){
+ const total=members.length;
+ const tagged=members.filter(m=>m.tag).length;
+ const ok=members.filter(m=>m.ok).length;
+ const avg=total?members.reduce((a,m)=>a+(Number(m.week)||0),0)/(total*300):0;
+ $('#dTotal').textContent=total;
+ $('#dTag').textContent=tagged;
+ $('#dGG').textContent=total?Math.round(ok/total*100)+'%':'0%';
+ $('#dWeek').textContent=Math.min(100,Math.round(avg*100))+'%';
+ $('#sideCount').textContent=total+' membros';
+ const chips=document.querySelectorAll('.hero .chip');
+ if(chips[1]) chips[1].textContent=total+' membros cadastrados';
+ if(chips[2]) chips[2].textContent=lines.length+' lines';
+ const top=[...members].sort((a,b)=>(b.gg||0)-(a.gg||0)).slice(0,4);
+ $('#ranking').innerHTML=top.length?top.map((m,i)=>`<div class="list-row"><div class="member"><div class="mini">${initials(m.name)}</div><div><b>${m.name}</b><small>${m.mode||'—'}</small></div></div><span class="rank">#${i+1} · ${m.gg||0}</span></div>`).join(''):'<div class="empty">Nenhum membro cadastrado ainda.</div>';
+}
+function renderMembers(){
+ const q=($('#search')?.value||'').toLowerCase(),tf=$('#tagFilter')?.value||'all',mf=$('#modeFilter')?.value||'all';
+ const rows=members.filter(m=>(m.name+' '+(m.id||'')).toLowerCase().includes(q)&&(tf==='all'||(tf==='tag'?m.tag:!m.tag))&&(mf==='all'||m.mode===mf));
+ $('#tbody').innerHTML=rows.map(m=>`<tr><td><div class="member"><div class="mini">${initials(m.name)}</div><div><b>${m.name}</b><small>ID ${m.id||'—'}</small></div></div></td><td>${m.mode||'—'}</td><td>${m.tag?'<span class="tag">[INV]</span>':'—'}</td><td><b>${m.gg||0}</b></td><td><b>${m.week||0}</b></td><td>${m.ok?'<span class="ok">● Em dia</span>':'<span class="pending">○ Pendente</span>'}</td><td><div class="row-actions"><button class="smallbtn" onclick="editMember('${m.id}')">✎</button><button class="smallbtn" onclick="removeMember('${m.id}')">×</button></div></td></tr>`).join('')||'<tr><td colspan="7" class="empty">Nenhum membro encontrado.</td></tr>';
+ const sum=a=>a.reduce((x,m)=>x+(Number(m)||0),0);
+ $('#mTotal').textContent=members.length;
+ $('#mTag').textContent=members.filter(m=>m.tag).length;
+ $('#mGG').textContent=sum(members.map(m=>m.gg)).toLocaleString('pt-BR');
+ $('#mWeek').textContent=sum(members.map(m=>m.week)).toLocaleString('pt-BR');
+ $('#sideCount').textContent=members.length+' membros';
+}
+function renderLines(){
+ const q=($('#lineSearch')?.value||'').toLowerCase();
+ $('#lineCards').innerHTML=lines.map(l=>{
+   const ms=l.ids.map(id=>members.find(m=>m.id===id)).filter(Boolean);
+   if(q && !l.name.toLowerCase().includes(q) && !ms.some(m=>(m.name+' '+m.id).toLowerCase().includes(q))) return '';
+   let slots=ms.map(m=>`<div class="slot"><div class="mini">${initials(m.name)}</div><span>${m.name}</span><span style="margin-left:auto;color:#7d8594">${m.gg||0} GG</span></div>`).join('');
+   for(let n=ms.length;n<10;n++) slots+=`<div class="slot empty">+ vaga disponível</div>`;
+   return `<div class="line-card"><div class="line-top"><h3>${l.name}</h3><span class="line-count">${ms.length}/10</span></div><div class="slots">${slots}</div></div>`;
+ }).join('') || '<div class="empty">Nenhuma line encontrada.</div>';
+}
+
+async function ensureGuild(){
+ if(!currentUser) return null;
+ const {data,error}=await supabaseClient.from('guilds').select('id,name,owner_id').eq('owner_id',currentUser.id).limit(1).maybeSingle();
+ if(error) throw error;
+ if(data){currentGuild=data;return data;}
+ const {data:created,error:createError}=await supabaseClient.from('guilds').insert({name:'GUILDA INVASORES',owner_id:currentUser.id}).select('id,name,owner_id').single();
+ if(createError) throw createError;
+ currentGuild=created;return created;
+}
+
+async function loadData(){
+ if(!currentGuild) return;
+ const [mr,lr,lmr]=await Promise.all([
+   supabaseClient.from('guild_members').select('id,nick,player_id,mode,tag,gg_points,weekly_points,status').eq('guild_id',currentGuild.id).order('created_at',{ascending:true}),
+   supabaseClient.from('guild_lines').select('id,name,mode').eq('guild_id',currentGuild.id).order('created_at',{ascending:true}),
+   supabaseClient.from('guild_line_members').select('line_id,member_id,position')
+ ]);
+ if(mr.error) throw mr.error;
+ if(lr.error) throw lr.error;
+ if(lmr.error) throw lmr.error;
+ members=(mr.data||[]).map(m=>({id:m.id,name:m.nick,playerId:m.player_id||'',mode:m.mode||'Rush',tag:!!m.tag,gg:m.gg_points||0,week:m.weekly_points||0,ok:m.status==='active'}));
+ const links=lmr.data||[];
+ lines=(lr.data||[]).map(l=>({id:l.id,name:l.name,mode:l.mode||'',ids:links.filter(x=>x.line_id===l.id).sort((a,b)=>(a.position||1)-(b.position||1)).map(x=>x.member_id)}));
+ renderDashboard();renderMembers();renderLines();
+}
+
+async function refreshData(){try{await loadData();}catch(e){console.error(e);toast('Não foi possível carregar os dados do Supabase');}}
+
+function openMember(){ $('#memberModal').classList.add('open') }
+function closeMember(){ $('#memberModal').classList.remove('open') }
+async function saveMember(){
+ const name=$('#nick').value.trim();if(!name){toast('Informe o nick do jogador');return}
+ if(!currentUser||!currentGuild){toast('Aguarde a conexão com o Supabase');return}
+ const payload={guild_id:currentGuild.id,user_id:currentUser.id,nickname:name,nick:name,player_id:$('#playerId').value.trim()||null,mode:$('#mode').value,tag:$('#tag').value==='1',gg_points:+$('#gg').value||0,weekly_points:+$('#week').value||0,status:'active'};
+ const {error}=await supabaseClient.from('guild_members').insert(payload);
+ if(error){toast(error.message);return}
+ closeMember();['nick','playerId','gg','week'].forEach(id=>$('#'+id).value=id==='gg'||id==='week'?0:'');
+ await refreshData();toast('Membro salvo no Supabase');
+}
+async function removeMember(id){
+ if(!confirm('Remover este membro?')) return;
+ const {error}=await supabaseClient.from('guild_members').delete().eq('id',id).eq('guild_id',currentGuild.id);
+ if(error){toast(error.message);return}
+ await refreshData();toast('Membro removido');
+}
+async function editMember(id){
+ const m=members.find(x=>x.id===id);if(!m)return;
+ const name=prompt('Nick',m.name);if(!name||!name.trim())return;
+ const {error}=await supabaseClient.from('guild_members').update({nick:name.trim()}).eq('id',id).eq('guild_id',currentGuild.id);
+ if(error){toast(error.message);return}
+ await refreshData();toast('Membro atualizado');
+}
+
+function openLine(){
+ $('#lineName').value='';
+ $('#memberChecks').innerHTML=members.map(m=>`<label class="list-row"><div class="member"><div class="mini">${initials(m.name)}</div><div><b>${m.name}</b><small>${m.mode} · ${m.gg} GG</small></div></div><input type="checkbox" value="${m.id}" style="accent-color:#1687ff;width:18px;height:18px"></label>`).join('')||'<div class="empty">Cadastre membros antes de criar uma line.</div>';
+ $('#lineModal').classList.add('open');
+}
+function closeLine(){ $('#lineModal').classList.remove('open') }
+async function saveLine(){
+ const ids=[...document.querySelectorAll('#memberChecks input:checked')].map(x=>x.value);
+ if(!ids.length){toast('Selecione pelo menos um membro');return}
+ if(ids.length>10){toast('Uma line pode ter no máximo 10 membros');return}
+ if(!currentUser||!currentGuild){toast('Aguarde a conexão com o Supabase');return}
+ const {data:line,error}=await supabaseClient.from('guild_lines').insert({guild_id:currentGuild.id,user_id:currentUser.id,name:$('#lineName').value.trim()||'Nova Line',mode:null}).select('id').single();
+ if(error){toast(error.message);return}
+ const rows=ids.map((member_id,i)=>({line_id:line.id,member_id,position:i+1}));
+ const {error:linkError}=await supabaseClient.from('guild_line_members').insert(rows);
+ if(linkError){await supabaseClient.from('guild_lines').delete().eq('id',line.id);toast(linkError.message);return}
+ closeLine();await refreshData();toast('Line salva no Supabase');
+}
+function saveSettings(){toast('Os ajustes visuais foram salvos nesta sessão; não há tabela de configurações no banco atual.')}
+
+$('#search').oninput=renderMembers;$('#tagFilter').onchange=renderMembers;$('#modeFilter').onchange=renderMembers;$('#lineSearch').oninput=renderLines;
+
+let authMode='login';
+function setAuthMode(mode){authMode=mode;const s=mode==='signup';$('#loginTab').classList.toggle('active',!s);$('#signupTab').classList.toggle('active',s);$('#authTitle').textContent=s?'Criar sua conta':'Entrar na sua conta';$('#authSub').textContent=s?'Cadastre-se para gerenciar sua guilda.':'Acesse o painel de gestão da sua guilda.';$('#authSubmit').textContent=s?'Criar conta':'Entrar';$('#confirmWrap').style.display=s?'block':'none';$('#authError').textContent=''}
+$('#loginTab').onclick=()=>setAuthMode('login');$('#signupTab').onclick=()=>setAuthMode('signup');
+
+$('#authSubmit').onclick=async()=>{
+ try{
+   const email=$('#authEmail').value.trim();
+   const password=$('#authPassword').value;
+   const confirm=$('#authConfirm').value;
+   $('#authError').style.color='#ff6974';
+   $('#authError').textContent='';
+   if(!email||!password){$('#authError').textContent='Informe e-mail e senha.';return;}
+   if(authMode==='signup'){
+     if(password.length<6){$('#authError').textContent='A senha deve ter pelo menos 6 caracteres.';return;}
+     if(password!==confirm){$('#authError').textContent='As senhas não coincidem.';return;}
+     const {data,error}=await supabaseClient.auth.signUp({email,password});
+     if(error)throw error;
+     if(!data.session){
+       $('#authError').style.color='#19e6a0';
+       $('#authError').textContent='Conta criada. Verifique seu e-mail para confirmar o cadastro.';
+     }else{
+       $('#authScreen').style.display='none';
+     }
+   }else{
+     const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
+     if(error)throw error;
+     currentUser=data.user;
+     $('#authScreen').style.display='none';
+   }
+ }catch(e){
+   console.error(e);
+   $('#authError').style.color='#ff6974';
+   $('#authError').textContent=e.message||'Não foi possível concluir a autenticação.';
+ }
+};
+
+async function startApp(){
+ try{
+   const {data,error}=await supabaseClient.auth.getSession();
+   if(error)throw error;
+   currentUser=data.session?.user||null;
+   if(!currentUser){$('#authScreen').style.display='flex';return;}
+   $('#authScreen').style.display='none';
+   await ensureGuild();
+   await loadData();
+ }catch(e){
+   console.error(e);
+   $('#authError').textContent=e.message||'Não foi possível conectar ao Supabase.';
+   $('#authScreen').style.display='flex';
+ }
+}
+
+supabaseClient.auth.onAuthStateChange(async (_event,session)=>{
+ currentUser=session?.user||null;
+ if(!currentUser){currentGuild=null;members=[];lines=[];$('#authScreen').style.display='flex';return;}
+ $('#authScreen').style.display='none';
+ try{await ensureGuild();await loadData();}catch(e){console.error(e);toast(e.message||'Erro ao carregar o banco');}
+});
+
+renderDashboard();renderMembers();renderLines();startApp();
+</script>
+</body>
+</html>
